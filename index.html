@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Landing Page</title>
+    <title>WT Assistant</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             font-family: Arial, sans-serif;
             margin: 0;
+            background-color: #f8f9fa;
         }
         .container {
             text-align: center;
@@ -20,6 +20,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             background-color: #fff;
+            max-width: 400px;
+            width: 100%;
         }
         .app-icon {
             width: 64px;
@@ -38,6 +40,7 @@
         .checkbox-container {
             display: flex;
             align-items: center;
+            justify-content: center;
             margin-bottom: 20px;
         }
         .checkbox-container input {
@@ -53,6 +56,7 @@
             border-radius: 4px;
             color: #fff;
             background-color: #007bff;
+            text-decoration: none;
         }
         .btn.open {
             background-color: #28a745;
@@ -68,29 +72,33 @@
             <input type="checkbox" id="save-place" checked>
             <label for="save-place">Save my place in the app. A link will be copied to continue to this page.</label>
         </div>
-        <button class="btn copy" onclick="copyURL()">Copy URL</button>
-        <button class="btn open" onclick="redirectToApp()">Open</button>
+        <button class="btn open" onclick="handleOpen()">Open</button>
     </div>
 
     <script>
-        function copyURL() {
+        function handleOpen() {
+            const checkbox = document.getElementById('save-place');
             const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('URL copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
+            const appURL = 'your-app-scheme://'; // Замените на URL-схему вашего приложения
+            const appStoreURL = 'https://apps.apple.com/app/wt-assistant/id899236988';
 
-        function redirectToApp() {
-            const appURL = 'your-app-scheme://'; // Replace with your app's URL scheme
-            const appStoreURL = 'https://apps.apple.com/us/app/your-app-name/idYOUR_APP_ID'; // Replace with your App Store URL
-            window.location.href = appURL;
-
-            setTimeout(() => {
-                // Fallback to App Store if the app is not installed
-                window.location.href = appStoreURL;
-            }, 1000);
+            if (checkbox.checked) {
+                navigator.clipboard.writeText(url).then(() => {
+                    window.location.href = appURL;
+                    setTimeout(() => {
+                        // Переход в App Store, если приложение не установлено
+                        window.location.href = appStoreURL;
+                    }, 1000);
+                }).catch(err => {
+                    console.error('Не удалось скопировать URL: ', err);
+                });
+            } else {
+                window.location.href = appURL;
+                setTimeout(() => {
+                    // Переход в App Store, если приложение не установлено
+                    window.location.href = appStoreURL;
+                }, 1000);
+            }
         }
     </script>
 </body>
