@@ -1,50 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Landing Page</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      text-align: center;
-    }
-    .btn {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Landing Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+        }
+        .app-title {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .app-description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #007bff;
+        }
+        .btn.open {
+            background-color: #28a745;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Our App</h1>
-    <p>Copy the current URL or go to the App Store to download our app.</p>
-    <button class="btn" onclick="copyURL()">Copy URL</button>
-    <button class="btn" onclick="redirectToAppStore()">Go to App Store</button>
-  </div>
-  
-  <script>
-    function copyURL() {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {
-        alert('URL copied to clipboard!');
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-      });
-    }
+    <div class="container">
+        <img src="app-icon.png" alt="App Icon" class="app-icon">
+        <div class="app-title">WT Assistant</div>
+        <div class="app-description">WT Assistant is an extremely handy app for all War Thunder players. Using "WT Assistant" you may run...</div>
+        <div class="checkbox-container">
+            <input type="checkbox" id="save-place" checked>
+            <label for="save-place">Save my place in the app. A link will be copied to continue to this page.</label>
+        </div>
+        <button class="btn copy" onclick="copyURL()">Copy URL</button>
+        <button class="btn open" onclick="redirectToApp()">Open</button>
+    </div>
 
-    function redirectToAppStore() {
-      const appStoreURL = 'https://apps.apple.com/app/wt-assistant/id899236988';
-      window.location.href = appStoreURL;
-    }
-  </script>
+    <script>
+        function copyURL() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('URL copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function redirectToApp() {
+            const appURL = 'your-app-scheme://'; // Replace with your app's URL scheme
+            const appStoreURL = 'https://apps.apple.com/us/app/your-app-name/idYOUR_APP_ID'; // Replace with your App Store URL
+            window.location.href = appURL;
+
+            setTimeout(() => {
+                // Fallback to App Store if the app is not installed
+                window.location.href = appStoreURL;
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
