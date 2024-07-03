@@ -1,4 +1,4 @@
 title: Deeplink test homepage
 
-include
+include:
   - .well-known
