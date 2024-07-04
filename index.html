@@ -67,38 +67,35 @@
     <div class="container">
         <img src="app-icon.png" alt="App Icon" class="app-icon">
         <div class="app-title">WT Assistant</div>
-        <div class="app-description">WT Assistant is an extremely handy app for all War Thunder players. Using "WT Assistant" you may run...</div>
+        <div class="app-description">WT Assistant is your mobile companion for your favourite game!
+
+            You are ready to install the WT Assistant mobile app.
+            Click the "OPEN" button to continue with the installation.</div>
         <div class="checkbox-container">
             <input type="checkbox" id="save-place" checked>
             <label for="save-place">Save my place in the app. A link will be copied to continue to this page.</label>
         </div>
-        <button class="btn open" onclick="handleOpen()">Open</button>
+        <button class="btn open" onclick="handleOpen()">OPEN</button>
     </div>
 
     <script>
         function handleOpen() {
             const checkbox = document.getElementById('save-place');
             const url = window.location.href;
-            const appURL = 'wtlogin://$url'; 
             const appStoreURL = 'https://apps.apple.com/app/wt-assistant/id899236988';
 
             if (checkbox.checked) {
                 navigator.clipboard.writeText(url).then(() => {
-                    window.location.href = appURL;
-                    setTimeout(() => {
-                        // Переход в App Store, если приложение не установлено
-                        window.location.href = appStoreURL;
-                    }, 1000);
+                    console.error('url has been copied successfully: ', err);
                 }).catch(err => {
-                    console.error('Не удалось скопировать URL: ', err);
+                    console.error('url copy error: ', err);
                 });
-            } else {
-                window.location.href = appURL;
-                setTimeout(() => {
-                    // Переход в App Store, если приложение не установлено
-                    window.location.href = appStoreURL;
-                }, 1000);
             }
+
+            window.location.href = appURL;
+            setTimeout(() => {
+                window.location.href = appStoreURL;
+            }, 1000);
         }
     </script>
 </body>
